@@ -1,20 +1,11 @@
 from flask import Flask, request, render_template, redirect, url_for, session
-import db  # Importing your database functions from db.py
+import db
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a real secret key for production
 
-
-# Global variable to check if database is initialized
-db_initialized = False
-
 @app.route('/')
 def index():
-    global db_initialized
-    if not db_initialized:
-        db.init_db()
-        db_initialized = True
-
     if 'user_id' in session:
         weight_entries = db.get_weight_entries(session['user_id'])
         return render_template('dashboard.html', entries=weight_entries)
@@ -60,4 +51,5 @@ def log_weight():
         return redirect(url_for('login'))
 
 if __name__ == '__main__':
+    db.init_db()  # Initialize the database only once when the application starts
     app.run(debug=True)
