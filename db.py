@@ -28,6 +28,12 @@ def get_user(username):
     conn.close()
     return user
 
+def get_user_by_id(user_id):
+    conn = get_db_connection()
+    user = conn.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
+    conn.close()
+    return user
+
 def log_weight(user_id, weight):
     conn = get_db_connection()
     with conn:
