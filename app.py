@@ -1,3 +1,8 @@
+#INF601 - Advanced Programming in Python
+#Eric Worsham
+#Mini Project 3
+
+
 from flask import Flask, request, render_template, redirect, url_for, session
 import db
 
